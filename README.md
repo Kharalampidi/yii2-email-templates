@@ -2,7 +2,7 @@
     <a href="https://github.com/yiimaker" target="_blank">
         <img src="https://avatars1.githubusercontent.com/u/24204902" height="100px">
     </a>
-    <h1 align="center">Email templates module</h1>
+    <h1 align="center">Email templates module (fork)</h1>
     <br>
 </p>
 

@@ -70,29 +70,28 @@ Usage
     
 3. Create a class that implements the ymaker\email\templates\templates interface.
 
-######Property names are equal to placeholders.
-
+    #####Property names are equal to placeholders.
     ```php
-       use ymaker\email\templates\templates\TemplateInterface;
-       
-       class NotificationTemplate implements TemplateInterface
-       {
-           /**
-            * @var string
-            */
-           private $username;
-           /**
-            * @var string
-            */
-           private $siteName;
-       
-           public function __construct(string $username, string $siteName)
-           {
-       
-               $this->username = $username;
-               $this->siteName = $siteName;
-           }
-       }
+     use ymaker\email\templates\templates\TemplateInterface;
+     
+     class NotificationTemplate implements TemplateInterface
+     {
+         /**
+          * @var string
+          */
+         private $username;
+         /**
+          * @var string
+          */
+         private $siteName;
+     
+         public function __construct(string $username, string $siteName)
+         {
+     
+             $this->username = $username;
+             $this->siteName = $siteName;
+         }
+     }
     ```
     
 4. Then you should parse this template   

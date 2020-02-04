@@ -1,6 +1,7 @@
 <?php
 /**
- * @link https://github.com/yiimaker/yii2-email-templates
+ * @see https://github.com/yiimaker/yii2-email-templates
+ *
  * @copyright Copyright (c) 2017-2018 Yii Maker
  * @license BSD 3-Clause License
  */
@@ -22,6 +23,7 @@ use ymaker\translatable\TranslatableBehavior;
  * @method EmailTemplateTranslation getTranslation($language = null)
  *
  * @author Vladimir Kuprienko <vldmr.kuprienko@gmail.com>
+ *
  * @since 1.0
  */
 class EmailTemplate extends ActiveRecord
@@ -37,7 +39,7 @@ class EmailTemplate extends ActiveRecord
     /**
      * {@inheritdoc}
      *
-     * @return EmailTemplateQuery the newly created [[EmailTemplateQuery]] instance.
+     * @return EmailTemplateQuery the newly created [[EmailTemplateQuery]] instance
      */
     public static function find()
     {
@@ -47,9 +49,9 @@ class EmailTemplate extends ActiveRecord
     /**
      * Find model ID by key.
      *
-     * @param string $key Model key.
+     * @param string $key model key
      *
-     * @return false|null|string
+     * @return false|string|null
      */
     public static function findId($key)
     {
@@ -66,7 +68,7 @@ class EmailTemplate extends ActiveRecord
     {
         return [
             'translateable' => [
-                'class' => TranslatableBehavior::class,
+                'class'                    => TranslatableBehavior::class,
                 'translationAttributeList' => $this->getTranslationAttributes(),
             ],
         ];

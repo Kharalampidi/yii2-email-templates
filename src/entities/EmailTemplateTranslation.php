@@ -1,6 +1,7 @@
 <?php
 /**
- * @link https://github.com/yiimaker/yii2-email-templates
+ * @see https://github.com/yiimaker/yii2-email-templates
+ *
  * @copyright Copyright (c) 2017-2018 Yii Maker
  * @license BSD 3-Clause License
  */
@@ -9,20 +10,20 @@ namespace ymaker\email\templates\entities;
 
 use Yii;
 use yii\db\ActiveRecord;
-use motion\i18n\LanguageProviderInterface;
 
 /**
  * This is the model class for table "{{%email_template_translation}}".
  *
- * @property int            $id
- * @property int            $templateId
- * @property string         $language
- * @property string         $subject
- * @property string         $body
- * @property string         $hint
- * @property EmailTemplate  $template
+ * @property int           $id
+ * @property int           $templateId
+ * @property string        $language
+ * @property string        $subject
+ * @property string        $body
+ * @property string        $hint
+ * @property EmailTemplate $template
  *
  * @author Vladimir Kuprienko <vldmr.kuprienko@gmail.com>
+ *
  * @since 1.0
  */
 class EmailTemplateTranslation extends ActiveRecord
@@ -43,6 +44,7 @@ class EmailTemplateTranslation extends ActiveRecord
     public static function internalFormName()
     {
         $reflector = new \ReflectionClass(self::class);
+
         return $reflector->getShortName();
     }
 
@@ -96,7 +98,7 @@ class EmailTemplateTranslation extends ActiveRecord
         foreach ($labels as $key => $label) {
             $labels[$key] = $this->addLabelPostfix($label);
         }
-        
+
         return $labels;
     }
 

@@ -1,6 +1,7 @@
 <?php
 /**
- * @link https://github.com/yiimaker/yii2-email-templates
+ * @see https://github.com/yiimaker/yii2-email-templates
+ *
  * @copyright Copyright (c) 2017-2018 Yii Maker
  * @license BSD 3-Clause License
  */
@@ -16,6 +17,7 @@ use ymaker\email\templates\repositories\EmailTemplatesRepositoryInterface;
  * This class provides methods for making work with email template easily in your code.
  *
  * @author Vladimir Kuprienko <vldmr.kuprienko@gmail.com>
+ *
  * @since 1.0
  */
 class TemplateManager extends BaseObject
@@ -27,7 +29,6 @@ class TemplateManager extends BaseObject
 
     /**
      * {@inheritdoc}
-     * @param EmailTemplatesRepositoryInterface $repository
      */
     public function __construct(EmailTemplatesRepositoryInterface $repository, $config = [])
     {
@@ -40,15 +41,15 @@ class TemplateManager extends BaseObject
      *
      * @see EmailTemplateModel
      *
-     * @param string        $key
-     * @param null|string   $language   Template language.
-     * @param mixed         $default    Default value.
+     * @param string      $key
+     * @param string|null $language template language
+     * @param mixed       $default  default value
      *
-     * @return null|EmailTemplate
+     * @return EmailTemplate|null
      */
     public function getTemplate($key, $language = null, $default = null)
     {
-        /* @var EmailTemplate $template */
+        // @var EmailTemplate $template
         $template = $this->repository->getByKeyWithTranslation(
             $key,
             $language ?: Yii::$app->language
@@ -62,10 +63,10 @@ class TemplateManager extends BaseObject
     /**
      * Returns email template on all languages.
      *
-     * @param string    $key
-     * @param mixed     $default Default value.
+     * @param string $key
+     * @param mixed  $default default value
      *
-     * @return null|EmailTemplate[]
+     * @return EmailTemplate[]|null
      */
     public function getAllTemplates($key, $default = null)
     {

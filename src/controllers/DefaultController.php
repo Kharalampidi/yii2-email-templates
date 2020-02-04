@@ -9,6 +9,7 @@ namespace ymaker\email\templates\controllers;
 
 use Yii;
 use yii\web\Controller;
+use yii\web\NotFoundHttpException;
 use ymaker\email\templates\Module as TemplatesModule;
 use ymaker\email\templates\repositories\EmailTemplatesRepositoryInterface;
 
@@ -68,7 +69,7 @@ class DefaultController extends Controller
      */
     public function actionUpdate($id)
     {
-        return $this->commonAction($this->repository->getById($id), ['view', 'id' => $id], 'update');
+        return $this->commonAction($this->findModel($id), ['view', 'id' => $id], 'update');
     }
 
     /**
@@ -80,7 +81,7 @@ class DefaultController extends Controller
      */
     public function actionView($id)
     {
-        return $this->render('view', ['model' => $this->repository->getById($id)]);
+        return $this->render('view', ['model' => $this->findModel($id)]);
     }
 
     /**
@@ -92,6 +93,9 @@ class DefaultController extends Controller
      */
     public function actionDelete($id)
     {
+        if (!$this->module->canDelete()) {
+            throw new NotFoundHttpException();
+        }
         $message = $this->repository->delete($id)
             ? TemplatesModule::t('Removed successfully')
             : TemplatesModule::t('Error: banner not removed');
@@ -99,6 +103,15 @@ class DefaultController extends Controller
         Yii::$app->getSession()->setFlash('yii2-email-templates', $message);
 
         return $this->redirect(['index']);
+    }
+
+    protected function findModel($id)
+    {
+        $template = $this->repository->getById($id);
+        if ($template === null) {
+            throw new NotFoundHttpException();
+        }
+        return $template;
     }
 
     /**

@@ -29,6 +29,8 @@ class Module extends \yii\base\Module
      */
     public $controllerNamespace = 'ymaker\email\templates\controllers';
 
+    public $canDelete = true;
+
     /**
      * Service for controller.
      *
@@ -108,30 +110,11 @@ class Module extends \yii\base\Module
      */
     public static function t($message, $params = [], $language = null)
     {
-        return Yii::t('back/email-templates', $message, $params, $language);
+        return Yii::t('email-templates/backend', $message, $params, $language);
     }
 
-    /**
-     * Returns url to repository for creation of new issue.
-     *
-     * @return string
-     *
-     * @since 3.0
-     */
-    final public static function getIssueUrl()
+    public function canDelete()
     {
-        return self::getRepoUrl() . '/issues/new';
-    }
-
-    /**
-     * Returns url of official repository.
-     *
-     * @return string
-     *
-     * @since 3.0
-     */
-    final public static function getRepoUrl()
-    {
-        return 'https://github.com/yiimaker/yii2-email-templates';
+        return $this->canDelete;
     }
 }

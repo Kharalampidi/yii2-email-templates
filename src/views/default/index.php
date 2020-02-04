@@ -21,11 +21,11 @@ $session = Yii::$app->getSession();
 ?>
 <div class="container">
     <div class="row">
-    <?php if ($session->hasFlash('yii2-email-templates')): ?>
-        <div class="col-md-12">
-            <div class="alert alert-success"><?= $session->getFlash('yii2-email-templates') ?></div>
-        </div>
-    <?php endif; ?>
+        <?php if ($session->hasFlash('yii2-email-templates')): ?>
+            <div class="col-md-12">
+                <div class="alert alert-success"><?= $session->getFlash('yii2-email-templates') ?></div>
+            </div>
+        <?php endif; ?>
         <div class="col-md-12">
             <h1>
                 <?= TemplatesModule::t('Email templates') ?>
@@ -45,10 +45,12 @@ $session = Yii::$app->getSession();
                 'columns' => [
                     ['class' => SerialColumn::class],
                     'key',
-                    ['class' => ActionColumn::class]
+                    [
+                            'class' => ActionColumn::class,
+                        'template' => '{view} {update}' . (Yii::$app->controller->module->canDelete() ? ' {delete}' : null )
+                    ]
                 ],
             ]) ?>
         </div>
-        <?= $this->render('_issue-message') ?>
     </div>
 </div>

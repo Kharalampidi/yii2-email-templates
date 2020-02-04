@@ -17,11 +17,12 @@ use ymaker\email\templates\Module as TemplatesModule;
 
 $this->params['breadcrumbs'][] = [
     'label' => TemplatesModule::t('Email templates list'),
-    'url' => ['/email-templates/default/index'],
+    'url' => ['default/index'],
 ];
 $this->params['breadcrumbs'][] = TemplatesModule::t('email template - {key}', [
     'key' => $model->key,
 ]);
+
 ?>
 <div class="container">
     <div class="row">
@@ -40,26 +41,33 @@ $this->params['breadcrumbs'][] = TemplatesModule::t('email template - {key}', [
                     Url::toRoute(['update', 'id' => $model->id]),
                     ['class' => 'btn btn-warning']
                 ) ?>
-                <?= Html::a(
-                    TemplatesModule::t('Delete'),
-                    Url::toRoute(['delete', 'id' => $model->id]),
-                    ['class' => 'btn btn-danger']
-                ) ?>
+                <?php if (Yii::$app->controller->module->canDelete()) : ?>
+                    <?= Html::a(
+                        TemplatesModule::t('Delete'),
+                        Url::toRoute(['delete', 'id' => $model->id]),
+                        ['class' => 'btn btn-danger']
+                    ) ?>
+                <?php endif; ?>
             </div>
         </div>
         <div class="clearfix"></div>
         <hr>
         <div class="col-md-12">
-            <?= DetailView::widget([
-                'model' => $model,
-                'attributes' => [
-                    'key',
-                    'subject',
-                    'body:html',
-                    'hint',
-                ],
+            <?= \yii\widgets\ListView::widget([
+                'dataProvider' => new \yii\data\ArrayDataProvider([
+                    'allModels' => $model->translations
+                ]),
+                'itemView' => function ($model, $key, $index, $widget) {
+                    return DetailView::widget([
+                        'model' => $model,
+                        'attributes' => [
+                            'subject',
+                            'body:html',
+                            'hint',
+                        ],
+                    ]);
+                }
             ]) ?>
         </div>
-        <?= $this->render('_issue-message') ?>
     </div>
 </div>

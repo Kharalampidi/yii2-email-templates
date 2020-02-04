@@ -4,7 +4,7 @@ use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 use ymaker\email\templates\Module as TemplatesModule;
 use motion\i18n\helpers\LanguageHelper;
-use vova07\imperavi\Widget as ImperaviRedactor;
+use \yii\imperavi\Widget as ImperaviRedactor;
 
 /**
  * View file for CRUD backend controller.
@@ -18,7 +18,7 @@ use vova07\imperavi\Widget as ImperaviRedactor;
 
 $this->params['breadcrumbs'][] = [
     'label' => TemplatesModule::t('Email templates list'),
-    'url' => ['/email-templates/default/index'],
+    'url' => ['default/index'],
 ];
 $this->params['breadcrumbs'][] = TemplatesModule::t('Create email template');
 ?>
@@ -42,12 +42,12 @@ $this->params['breadcrumbs'][] = TemplatesModule::t('Create email template');
             <?php foreach (LanguageHelper::getInstance()->getLocales() as $language): ?>
                 <?php $translation = $model->getTranslation($language) ?>
                 <?= $form->field($translation, 'subject') ?>
-            <?php if (class_exists(ImperaviRedactor::class)): ?>
-                <?= $form->field($translation, 'body')
-                    ->widget(ImperaviRedactor::class) ?>
-            <?php else: ?>
-                <?= $form->field($translation, 'body')->textarea() ?>
-            <?php endif; ?>
+                <?php if (class_exists(ImperaviRedactor::class)): ?>
+                    <?= $form->field($translation, 'body')
+                        ->widget(ImperaviRedactor::class) ?>
+                <?php else: ?>
+                    <?= $form->field($translation, 'body')->textarea() ?>
+                <?php endif; ?>
                 <?= $form->field($translation, 'hint') ?>
             <?php endforeach ?>
             <?= Html::submitButton(
@@ -56,6 +56,5 @@ $this->params['breadcrumbs'][] = TemplatesModule::t('Create email template');
             ) ?>
             <?php $form->end() ?>
         </div>
-        <?= $this->render('_issue-message') ?>
     </div>
 </div>

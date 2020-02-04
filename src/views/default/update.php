@@ -4,7 +4,7 @@ use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 use ymaker\email\templates\Module as TemplatesModule;
 use motion\i18n\helpers\LanguageHelper;
-use vova07\imperavi\Widget as ImperaviRedactor;
+use \yii\imperavi\Widget as ImperaviRedactor;
 
 /**
  * View file for CRUD backend controller.
@@ -18,7 +18,7 @@ use vova07\imperavi\Widget as ImperaviRedactor;
 
 $this->params['breadcrumbs'][] = [
     'label' => TemplatesModule::t('Email templates list'),
-    'url' => ['/email-templates/default/index'],
+    'url' => ['default/index'],
 ];
 $this->params['breadcrumbs'][] = TemplatesModule::t('Update email template - {key}', [
     'key' => $model->key,
@@ -57,6 +57,5 @@ $this->params['breadcrumbs'][] = TemplatesModule::t('Update email template - {ke
             ) ?>
             <?php $form->end() ?>
         </div>
-        <?= $this->render('_issue-message') ?>
     </div>
 </div>

@@ -31,7 +31,7 @@ Basic usage
     
 3. Create a class that implements the ymaker\email\templates\templates interface.
 
-######Property names are equal to placeholders.
+    #####Property names are equal to placeholders.
 
     ```php
        use ymaker\email\templates\templates\TemplateInterface;

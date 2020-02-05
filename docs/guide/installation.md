@@ -46,6 +46,9 @@ To use this extension, simply add the following code in your application configu
     // ...
     'email-templates' => [
         'class' => \ymaker\email\templates\Module::class,
+        //if you don`t want to delete or create through the module. 
+        'canDelete' => false, //optional
+        'canCreate' => false, //optional
         'languageProvider' => [
             'class' => \motion\i18n\ConfigLanguageProvider::class,
             'languages' => [

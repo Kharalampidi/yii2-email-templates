@@ -1,6 +1,7 @@
 <?php
 /**
- * @link https://github.com/yiimaker/yii2-email-templates
+ * @see https://github.com/yiimaker/yii2-email-templates
+ *
  * @copyright Copyright (c) 2017-2018 Yii Maker
  * @license BSD 3-Clause License
  */
@@ -19,6 +20,7 @@ use ymaker\email\templates\entities\EmailTemplateTranslation;
  * Repository for email templates.
  *
  * @author Vladimir Kuprienko <vldmr.kuprienko@gmail.com>
+ *
  * @since 4.0
  */
 class EmailTemplatesRepository extends BaseObject implements EmailTemplatesRepositoryInterface
@@ -27,7 +29,6 @@ class EmailTemplatesRepository extends BaseObject implements EmailTemplatesRepos
      * @var string|array|Connection
      */
     private $_db = 'db';
-
 
     /**
      * @param string|array|Connection $db
@@ -103,7 +104,7 @@ class EmailTemplatesRepository extends BaseObject implements EmailTemplatesRepos
     public function getDataProvider()
     {
         return new ActiveDataProvider([
-            'db' => $this->_db,
+            'db'    => $this->_db,
             'query' => EmailTemplate::find()->with('translations'),
         ]);
     }
@@ -130,7 +131,6 @@ class EmailTemplatesRepository extends BaseObject implements EmailTemplatesRepos
      * Save entity.
      *
      * @param EmailTemplate $entity
-     * @param array         $data
      *
      * @return bool
      */
@@ -187,9 +187,6 @@ class EmailTemplatesRepository extends BaseObject implements EmailTemplatesRepos
 
     /**
      * Save entity to database.
-     *
-     * @param EmailTemplate $entity
-     * @param array $data
      *
      * @throws \DomainException
      * @throws \RuntimeException

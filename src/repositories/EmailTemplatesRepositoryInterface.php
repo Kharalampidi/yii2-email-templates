@@ -1,16 +1,20 @@
 <?php
 /**
- * @link https://github.com/yiimaker/yii2-email-templates
+ * @see https://github.com/yiimaker/yii2-email-templates
+ *
  * @copyright Copyright (c) 2017-2018 Yii Maker
  * @license BSD 3-Clause License
  */
 
 namespace ymaker\email\templates\repositories;
 
+use ymaker\email\templates\entities\EmailTemplate;
+
 /**
  * Interface of email templates repository.
  *
  * @author Vladimir Kuprienko <vldmr.kuprienko@gmail.com>
+ *
  * @since 4.0
  */
 interface EmailTemplatesRepositoryInterface
@@ -19,8 +23,6 @@ interface EmailTemplatesRepositoryInterface
      * Find email template entity by ID.
      *
      * @param int $id
-     *
-     * @return mixed
      */
     public function getById($id);
 
@@ -30,7 +32,7 @@ interface EmailTemplatesRepositoryInterface
      * @param string $key
      * @param string $language
      *
-     * @return mixed
+     * @return EmailTemplate
      */
     public function getByKeyWithTranslation($key, $language);
 
@@ -38,8 +40,6 @@ interface EmailTemplatesRepositoryInterface
      * Find all language versions of template by key.
      *
      * @param string $key
-     *
-     * @return mixed
      */
     public function getAll($key);
 
@@ -61,18 +61,11 @@ interface EmailTemplatesRepositoryInterface
 
     /**
      * Creates new email template.
-     *
-     * @return mixed
      */
     public function create();
 
     /**
      * Save data in entity.
-     *
-     * @param mixed $entity
-     * @param array $data
-     *
-     * @return mixed
      */
     public function save($entity, array $data = []);
 
@@ -87,8 +80,6 @@ interface EmailTemplatesRepositoryInterface
 
     /**
      * Removes email template object.
-     *
-     * @param mixed $entity
      *
      * @return bool
      */

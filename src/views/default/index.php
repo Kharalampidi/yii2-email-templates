@@ -10,47 +10,50 @@ use ymaker\email\templates\Module as TemplatesModule;
 /**
  * View file for CRUD backend controller.
  *
- * @var \yii\web\View $this
+ * @var \yii\web\View
  * @var \yii\data\ActiveDataProvider $dataProvider
  *
  * @author Vladimir Kuprienko <vldmr.kuprienko@gmail.com>
+ *
  * @since 1.0
  */
-
 $session = Yii::$app->getSession();
 ?>
 <div class="container">
     <div class="row">
         <?php if ($session->hasFlash('yii2-email-templates')): ?>
             <div class="col-md-12">
-                <div class="alert alert-success"><?= $session->getFlash('yii2-email-templates') ?></div>
+                <div class="alert alert-success"><?php echo $session->getFlash('yii2-email-templates'); ?></div>
             </div>
         <?php endif; ?>
         <div class="col-md-12">
             <h1>
-                <?= TemplatesModule::t('Email templates') ?>
-                <small><?= TemplatesModule::t('list of templates') ?></small>
-                <?= Html::a(
-                    TemplatesModule::t('Create template'),
-                    Url::toRoute(['create']),
-                    ['class' => 'btn btn-success pull-right']
-                ) ?>
+                <?php echo TemplatesModule::t('Email templates'); ?>
+                <small><?php echo TemplatesModule::t('list of templates'); ?></small>
+                <?php if (Yii::$app->controller->module->canCreate()) : ?>
+                    <?php echo Html::a(
+    TemplatesModule::t('Create template'),
+    Url::toRoute(['create']),
+    ['class' => 'btn btn-success pull-right']
+); ?>
+                <?php endif; ?>
+
             </h1>
         </div>
         <div class="clearfix"></div>
         <hr>
         <div class="col-md-12">
-            <?= GridView::widget([
+            <?php echo GridView::widget([
                 'dataProvider' => $dataProvider,
-                'columns' => [
+                'columns'      => [
                     ['class' => SerialColumn::class],
                     'key',
                     [
-                            'class' => ActionColumn::class,
-                        'template' => '{view} {update}' . (Yii::$app->controller->module->canDelete() ? ' {delete}' : null )
-                    ]
+                        'class'    => ActionColumn::class,
+                        'template' => '{view} {update}' . (Yii::$app->controller->module->canDelete() ? ' {delete}' : null),
+                    ],
                 ],
-            ]) ?>
+            ]); ?>
         </div>
     </div>
 </div>

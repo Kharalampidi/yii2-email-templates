@@ -48,15 +48,15 @@ Usage
 
     ##### Subject
     
-    `Notification from {site-name}`
+    `Notification from {siteName}`
     
-    In this example email subject has one placeholder `{site-name}`
+    In this example email subject has one placeholder `{siteName}`
     
     ##### Body
     
-    `Hello, {username}! Welcome to {site-name} :)`
+    `Hello, {username}! Welcome to {siteName} :)`
     
-    Email body has two placeholders: `{username}` and `{site-name}`.
+    Email body has two placeholders: `{username}` and `{siteName}`.
     
     > All keys should be wrapped by `{}`.
     
@@ -68,41 +68,48 @@ Usage
     
     This method returns a template model object.
     
-3. Then you should parse this template
+3. Create a class that implements the ymaker\email\templates\templates interface.
 
+    #####Property names are equal to placeholders.
     ```php
-    $template->parseSubject([
-       'site-name' => Yii::$app->name,
-    ]);
- 
-    $template->parseBody([
-       'username' => Yii::$app->getIdentity()->username,
-       'site-name' => Yii::$app->name,
-    ]);
+     use ymaker\email\templates\templates\TemplateInterface;
+     
+     class NotificationTemplate implements TemplateInterface
+     {
+         /**
+          * @var string
+          */
+         private $username;
+         /**
+          * @var string
+          */
+         private $siteName;
+     
+         public function __construct(string $username, string $siteName)
+         {
+     
+             $this->username = $username;
+             $this->siteName = $siteName;
+         }
+     }
     ```
     
-    or use another method
-    
+4. Then you should parse this template   
     ```php
-    $template->parse([
-       'subject' => [
-           'site-name' => Yii::$app->name,
-       ],
-       'body' => [
-           'username' => Yii::$app->getIdentity()->username,
-           'site-name' => Yii::$app->name,
-       ],
-    ]);
+    $template->parse(new NotificationTemplate(
+        Yii::$app->getIdentity()->username,
+        Yii::$app->name
+    ));
     ```
     
     this methods replace placeholders in template with real data.
     
-4. Now you can use data of this template in your logic
+5. Now you can use data of this template in your logic
 
     ```php
     Yii::$app->get('mailer')->compose()
-        ->setSubject($template->subject)
-        ->setHtmlBody($template->body)
+        ->setSubject($template->subject())
+        ->setHtmlBody($template->body())
         // ...
     ```
 

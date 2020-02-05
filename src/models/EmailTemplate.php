@@ -1,6 +1,7 @@
 <?php
 /**
- * @link https://github.com/yiimaker/yii2-email-templates
+ * @see https://github.com/yiimaker/yii2-email-templates
+ *
  * @copyright Copyright (c) 2017-2018 Yii Maker
  * @license BSD 3-Clause License
  */
@@ -8,16 +9,15 @@
 namespace ymaker\email\templates\models;
 
 use yii\base\BaseObject;
+use ymaker\email\templates\templates\TemplateInterface;
 
 /**
  * Model class for template manager.
  *
  * @see \ymaker\email\templates\components\TemplateManager
  *
- * @property string $subject
- * @property string $body
- *
  * @author Vladimir Kuprienko <vldmr.kuprienko@gmail.com>
+ *
  * @since 1.0
  */
 class EmailTemplate extends BaseObject
@@ -27,52 +27,37 @@ class EmailTemplate extends BaseObject
      *
      * @var string
      */
-    private $_subject;
+    private $subject;
     /**
      * Email letter body.
      *
      * @var string
      */
-    private $_body;
+    private $body;
 
-
-    /**
-     * Getter for subject.
-     *
-     * @return string
-     *
-     * @since 2.0
-     */
-    public function getSubject()
+    public function subject(): string
     {
-        return $this->_subject;
+        return $this->subject;
     }
 
-    /**
-     * Getter for body.
-     *
-     * @return string
-     *
-     * @since 2.0
-     */
-    public function getBody()
+    public function body(): string
     {
-        return $this->_body;
+        return $this->body;
     }
 
     /**
      * EmailTemplate constructor.
      *
-     * @param string    $subject
-     * @param string    $body
-     * @param array     $config
+     * @param string $subject
+     * @param string $body
+     * @param array  $config
      *
      * @since 2.0
      */
     public function __construct($subject, $body, $config = [])
     {
-        $this->_subject = $subject;
-        $this->_body = $body;
+        $this->subject = $subject;
+        $this->body = $body;
 
         parent::__construct($config);
     }
@@ -108,51 +93,20 @@ class EmailTemplate extends BaseObject
     }
 
     /**
-     * @param array     $data
-     * @param string    $attribute
-     */
-    protected function replaceKeys($data, $attribute)
-    {
-        foreach ($data as $key => $value) {
-            $this->$attribute = \strtr($this->$attribute, [
-                \sprintf('{%s}', $key) => $value,
-            ]);
-        }
-    }
-
-    /**
      * Replace keys to real data in subject and body.
-     *
-     * @param array $data Array with key-value pairs.
      */
-    public function parse($data)
+    public function parse(TemplateInterface $template)
     {
-        if (isset($data['subject'])) {
-            $this->replaceKeys($data['subject'], '_subject');
+        $reflection = new \ReflectionClass($template);
+        foreach ($reflection->getProperties() as $property) {
+            $property->setAccessible(true);
+            foreach (['subject', 'body'] as $attribute) {
+                $this->$attribute = \strtr($this->$attribute, [
+                    \sprintf('{%s}', $property->getName()) => $property->getValue($template),
+                ]);
+            }
         }
 
-        if (isset($data['body'])) {
-            $this->replaceKeys($data['body'], '_body');
-        }
-    }
-
-    /**
-     * Replace keys to real data in subject.
-     *
-     * @param array $data Array with key-value pairs.
-     */
-    public function parseSubject($data)
-    {
-        $this->replaceKeys($data, '_subject');
-    }
-
-    /**
-     * Replace keys to real data in body.
-     *
-     * @param array $data Array with key-value pairs.
-     */
-    public function parseBody($data)
-    {
-        $this->replaceKeys($data, '_body');
+        return $this;
     }
 }

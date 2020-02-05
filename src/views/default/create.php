@@ -1,12 +1,12 @@
 <?php
 
+use motion\i18n\helpers\LanguageHelper;
 use yii\helpers\Html;
+use yii\imperavi\Widget as ImperaviRedactor;
 use yii\widgets\ActiveForm;
 use ymaker\email\templates\Module as TemplatesModule;
-use motion\i18n\helpers\LanguageHelper;
-use \yii\imperavi\Widget as ImperaviRedactor;
 
-/**
+/*
  * View file for CRUD backend controller.
  *
  * @var \yii\web\View $this
@@ -18,7 +18,7 @@ use \yii\imperavi\Widget as ImperaviRedactor;
 
 $this->params['breadcrumbs'][] = [
     'label' => TemplatesModule::t('Email templates list'),
-    'url' => ['default/index'],
+    'url'   => ['default/index'],
 ];
 $this->params['breadcrumbs'][] = TemplatesModule::t('Create email template');
 ?>
@@ -26,8 +26,8 @@ $this->params['breadcrumbs'][] = TemplatesModule::t('Create email template');
     <div class="row">
         <div class="col-md-12">
             <h1>
-                <?= TemplatesModule::t('Email templates') ?>
-                <small><?= TemplatesModule::t('create new template') ?></small>
+                <?php echo TemplatesModule::t('Email templates'); ?>
+                <small><?php echo TemplatesModule::t('create new template'); ?></small>
             </h1>
         </div>
         <div class="clearfix"></div>
@@ -37,24 +37,24 @@ $this->params['breadcrumbs'][] = TemplatesModule::t('Create email template');
                 'fieldConfig' => [
                     'template' => "{label}\n{input}\n{error}",
                 ],
-            ]) ?>
-            <?= $form->field($model, 'key')->textInput(['autofocus' => true]) ?>
+            ]); ?>
+            <?php echo $form->field($model, 'key')->textInput(['autofocus' => true]); ?>
             <?php foreach (LanguageHelper::getInstance()->getLocales() as $language): ?>
-                <?php $translation = $model->getTranslation($language) ?>
-                <?= $form->field($translation, 'subject') ?>
-                <?php if (class_exists(ImperaviRedactor::class)): ?>
-                    <?= $form->field($translation, 'body')
-                        ->widget(ImperaviRedactor::class) ?>
+                <?php $translation = $model->getTranslation($language); ?>
+                <?php echo $form->field($translation, 'subject'); ?>
+                <?php if (\class_exists(ImperaviRedactor::class)): ?>
+                    <?php echo $form->field($translation, 'body')
+                        ->widget(ImperaviRedactor::class); ?>
                 <?php else: ?>
-                    <?= $form->field($translation, 'body')->textarea() ?>
+                    <?php echo $form->field($translation, 'body')->textarea(); ?>
                 <?php endif; ?>
-                <?= $form->field($translation, 'hint') ?>
-            <?php endforeach ?>
-            <?= Html::submitButton(
-                TemplatesModule::t('Create'),
-                ['class' => 'btn btn-success']
-            ) ?>
-            <?php $form->end() ?>
+                <?php echo $form->field($translation, 'hint'); ?>
+            <?php endforeach; ?>
+            <?php echo Html::submitButton(
+                            TemplatesModule::t('Create'),
+                            ['class' => 'btn btn-success']
+                        ); ?>
+            <?php $form->end(); ?>
         </div>
     </div>
 </div>

@@ -50,6 +50,13 @@ class Generator extends \yii\gii\Generator
     public $migrationName;
 
     /**
+     * Path alias for migrations
+     * @var string
+     */
+    public $migrationPath = '@app/migrations/';
+
+
+    /**
      * {@inheritdoc}
      */
     public function init()
@@ -137,6 +144,6 @@ class Generator extends \yii\gii\Generator
      */
     protected function getMigrationAlias()
     {
-        return Yii::getAlias('@console/migrations/' . $this->migrationName . '.php');
+        return Yii::getAlias($this->migrationPath . $this->migrationName . '.php');
     }
 }

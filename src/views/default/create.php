@@ -17,17 +17,17 @@ use ymaker\email\templates\Module as TemplatesModule;
  */
 
 $this->params['breadcrumbs'][] = [
-    'label' => TemplatesModule::t('Email templates list'),
+    'label' => \Yii::t('email-templates/backend','Email templates list'),
     'url'   => ['default/index'],
 ];
-$this->params['breadcrumbs'][] = TemplatesModule::t('Create email template');
+$this->params['breadcrumbs'][] = \Yii::t('email-templates/backend','Create email template');
 ?>
 <div class="container">
     <div class="row">
         <div class="col-md-12">
             <h1>
-                <?php echo TemplatesModule::t('Email templates'); ?>
-                <small><?php echo TemplatesModule::t('create new template'); ?></small>
+                <?php echo \Yii::t('email-templates/backend','Email templates'); ?>
+                <small><?php echo \Yii::t('email-templates/backend','create new template'); ?></small>
             </h1>
         </div>
         <div class="clearfix"></div>
@@ -51,7 +51,7 @@ $this->params['breadcrumbs'][] = TemplatesModule::t('Create email template');
                 <?php echo $form->field($translation, 'hint'); ?>
             <?php endforeach; ?>
             <?php echo Html::submitButton(
-                            TemplatesModule::t('Create'),
+                            \Yii::t('email-templates/backend','Create'),
                             ['class' => 'btn btn-success']
                         ); ?>
             <?php $form->end(); ?>

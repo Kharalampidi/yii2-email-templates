@@ -102,8 +102,8 @@ class DefaultController extends Controller
             throw new NotFoundHttpException();
         }
         $message = $this->repository->delete($id)
-            ? TemplatesModule::t('Removed successfully')
-            : TemplatesModule::t('Error: banner not removed');
+            ? \Yii::t('email-templates/backend','Removed successfully')
+            : \Yii::t('email-templates/backend','Error: banner not removed');
 
         Yii::$app->getSession()->setFlash('yii2-email-templates', $message);
 

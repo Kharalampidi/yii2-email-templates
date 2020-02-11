@@ -16,10 +16,10 @@ use ymaker\email\templates\Module as TemplatesModule;
  */
 
 $this->params['breadcrumbs'][] = [
-    'label' => TemplatesModule::t('Email templates list'),
+    'label' => \Yii::t('email-templates/backend','Email templates list'),
     'url'   => ['default/index'],
 ];
-$this->params['breadcrumbs'][] = TemplatesModule::t('email template - {key}', [
+$this->params['breadcrumbs'][] = \Yii::t('email-templates/backend','email template - {key}', [
     'key' => $model->key,
 ]);
 
@@ -28,8 +28,8 @@ $this->params['breadcrumbs'][] = TemplatesModule::t('email template - {key}', [
     <div class="row">
         <div class="col-md-12">
             <h1>
-                <?php echo TemplatesModule::t('Email templates'); ?>
-                <small><?php echo TemplatesModule::t('view template'); ?></small>
+                <?php echo \Yii::t('email-templates/backend','Email templates'); ?>
+                <small><?php echo \Yii::t('email-templates/backend','view template'); ?></small>
             </h1>
         </div>
         <div class="clearfix"></div>
@@ -37,13 +37,13 @@ $this->params['breadcrumbs'][] = TemplatesModule::t('email template - {key}', [
         <div class="col-md-12">
             <div class="pull-right">
                 <?php echo Html::a(
-    TemplatesModule::t('Update'),
+    \Yii::t('email-templates/backend','Update'),
     Url::toRoute(['update', 'id' => $model->id]),
     ['class' => 'btn btn-warning']
 ); ?>
                 <?php if (Yii::$app->controller->module->canDelete()) : ?>
                     <?php echo Html::a(
-    TemplatesModule::t('Delete'),
+    \Yii::t('email-templates/backend','Delete'),
     Url::toRoute(['delete', 'id' => $model->id]),
     ['class' => 'btn btn-danger']
 ); ?>

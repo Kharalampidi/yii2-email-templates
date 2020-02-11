@@ -28,11 +28,11 @@ $session = Yii::$app->getSession();
         <?php endif; ?>
         <div class="col-md-12">
             <h1>
-                <?php echo TemplatesModule::t('Email templates'); ?>
-                <small><?php echo TemplatesModule::t('list of templates'); ?></small>
+                <?php echo \Yii::t('email-templates/backend','Email templates'); ?>
+                <small><?php echo \Yii::t('email-templates/backend','list of templates'); ?></small>
                 <?php if (Yii::$app->controller->module->canCreate()) : ?>
                     <?php echo Html::a(
-    TemplatesModule::t('Create template'),
+    \Yii::t('email-templates/backend','Create template'),
     Url::toRoute(['create']),
     ['class' => 'btn btn-success pull-right']
 ); ?>

@@ -99,20 +99,6 @@ class Module extends \yii\base\Module
     }
 
     /**
-     * Module wrapper for `Yii::t()` method.
-     *
-     * @param string      $message
-     * @param array       $params
-     * @param string|null $language
-     *
-     * @return string
-     */
-    public static function t($message, $params = [], $language = null)
-    {
-        return Yii::t('email-templates/backend', $message, $params, $language);
-    }
-
-    /**
      * @return bool
      */
     public function canDelete()

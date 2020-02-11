@@ -17,10 +17,10 @@ use ymaker\email\templates\Module as TemplatesModule;
  */
 
 $this->params['breadcrumbs'][] = [
-    'label' => TemplatesModule::t('Email templates list'),
+    'label' => \Yii::t('email-templates/backend','Email templates list'),
     'url'   => ['default/index'],
 ];
-$this->params['breadcrumbs'][] = TemplatesModule::t('Update email template - {key}', [
+$this->params['breadcrumbs'][] = \Yii::t('email-templates/backend','Update email template - {key}', [
     'key' => $model->key,
 ]);
 ?>
@@ -28,8 +28,8 @@ $this->params['breadcrumbs'][] = TemplatesModule::t('Update email template - {ke
     <div class="row">
         <div class="col-md-12">
             <h1>
-                <?php echo TemplatesModule::t('Email templates'); ?>
-                <small><?php echo TemplatesModule::t('update template'); ?></small>
+                <?php echo \Yii::t('email-templates/backend','Email templates'); ?>
+                <small><?php echo \Yii::t('email-templates/backend','update template'); ?></small>
             </h1>
         </div>
         <div class="clearfix"></div>
@@ -52,7 +52,7 @@ $this->params['breadcrumbs'][] = TemplatesModule::t('Update email template - {ke
                     ->textInput(['disabled' => true]); ?>
             <?php endforeach; ?>
             <?php echo Html::submitButton(
-                        TemplatesModule::t('Save'),
+                        \Yii::t('email-templates/backend','Save'),
                         ['class' => 'btn btn-success']
                     ); ?>
             <?php $form->end(); ?>

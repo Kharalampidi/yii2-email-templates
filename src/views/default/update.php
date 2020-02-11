@@ -1,12 +1,12 @@
 <?php
 
+use motion\i18n\helpers\LanguageHelper;
 use yii\helpers\Html;
+use yii\imperavi\Widget as ImperaviRedactor;
 use yii\widgets\ActiveForm;
 use ymaker\email\templates\Module as TemplatesModule;
-use motion\i18n\helpers\LanguageHelper;
-use \yii\imperavi\Widget as ImperaviRedactor;
 
-/**
+/*
  * View file for CRUD backend controller.
  *
  * @var \yii\web\View $this
@@ -17,10 +17,10 @@ use \yii\imperavi\Widget as ImperaviRedactor;
  */
 
 $this->params['breadcrumbs'][] = [
-    'label' => TemplatesModule::t('Email templates list'),
-    'url' => ['default/index'],
+    'label' => \Yii::t('email-templates/backend','Email templates list'),
+    'url'   => ['default/index'],
 ];
-$this->params['breadcrumbs'][] = TemplatesModule::t('Update email template - {key}', [
+$this->params['breadcrumbs'][] = \Yii::t('email-templates/backend','Update email template - {key}', [
     'key' => $model->key,
 ]);
 ?>
@@ -28,34 +28,34 @@ $this->params['breadcrumbs'][] = TemplatesModule::t('Update email template - {ke
     <div class="row">
         <div class="col-md-12">
             <h1>
-                <?= TemplatesModule::t('Email templates') ?>
-                <small><?= TemplatesModule::t('update template') ?></small>
+                <?php echo \Yii::t('email-templates/backend','Email templates'); ?>
+                <small><?php echo \Yii::t('email-templates/backend','update template'); ?></small>
             </h1>
         </div>
         <div class="clearfix"></div>
         <hr>
         <div class="col-md-12">
-            <?php $form = ActiveForm::begin() ?>
-            <?= $form->field($model, 'key')
-                ->textInput(['disabled' => true]) ?>
+            <?php $form = ActiveForm::begin(); ?>
+            <?php echo $form->field($model, 'key')
+                ->textInput(['disabled' => true]); ?>
             <?php foreach (LanguageHelper::getInstance()->getLocales() as $language): ?>
-                <?php $translation = $model->getTranslation($language) ?>
-                <?= $form->field($translation, 'subject')
-                    ->textInput() ?>
-                <?php if (class_exists(ImperaviRedactor::class)): ?>
-                    <?= $form->field($translation, 'body')
-                        ->widget(ImperaviRedactor::class) ?>
+                <?php $translation = $model->getTranslation($language); ?>
+                <?php echo $form->field($translation, 'subject')
+                    ->textInput(); ?>
+                <?php if (\class_exists(ImperaviRedactor::class)): ?>
+                    <?php echo $form->field($translation, 'body')
+                        ->widget(ImperaviRedactor::class); ?>
                 <?php else: ?>
-                    <?= $form->field($translation, 'body')->textarea() ?>
+                    <?php echo $form->field($translation, 'body')->textarea(); ?>
                 <?php endif; ?>
-                <?= $form->field($translation, 'hint')
-                    ->textInput(['disabled' => true]) ?>
-            <?php endforeach ?>
-            <?= Html::submitButton(
-                TemplatesModule::t('Save'),
-                ['class' => 'btn btn-success']
-            ) ?>
-            <?php $form->end() ?>
+                <?php echo $form->field($translation, 'hint')
+                    ->textInput(['disabled' => true]); ?>
+            <?php endforeach; ?>
+            <?php echo Html::submitButton(
+                        \Yii::t('email-templates/backend','Save'),
+                        ['class' => 'btn btn-success']
+                    ); ?>
+            <?php $form->end(); ?>
         </div>
     </div>
 </div>

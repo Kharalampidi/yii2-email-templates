@@ -1,6 +1,7 @@
 <?php
 /**
- * @link https://github.com/yiimaker/yii2-email-templates
+ * @see https://github.com/yiimaker/yii2-email-templates
+ *
  * @copyright Copyright (c) 2017-2018 Yii Maker
  * @license BSD 3-Clause License
  */
@@ -17,6 +18,7 @@ use ymaker\email\templates\repositories\EmailTemplatesRepositoryInterface;
  * CRUD controller for backend.
  *
  * @author Vladimir Kuprienko <vldmr.kuprienko@gmail.com>
+ *
  * @since 1.0
  */
 class DefaultController extends Controller
@@ -28,7 +30,6 @@ class DefaultController extends Controller
      * @var EmailTemplatesRepositoryInterface
      */
     protected $repository;
-
 
     /**
      * {@inheritdoc}
@@ -57,6 +58,10 @@ class DefaultController extends Controller
      */
     public function actionCreate()
     {
+        if (!$this->module->canCreate()) {
+            throw new NotFoundHttpException();
+        }
+
         return $this->commonAction($this->repository->create(), ['index'], 'create');
     }
 
@@ -97,8 +102,8 @@ class DefaultController extends Controller
             throw new NotFoundHttpException();
         }
         $message = $this->repository->delete($id)
-            ? TemplatesModule::t('Removed successfully')
-            : TemplatesModule::t('Error: banner not removed');
+            ? \Yii::t('email-templates/backend','Removed successfully')
+            : \Yii::t('email-templates/backend','Error: banner not removed');
 
         Yii::$app->getSession()->setFlash('yii2-email-templates', $message);
 
@@ -108,17 +113,17 @@ class DefaultController extends Controller
     protected function findModel($id)
     {
         $template = $this->repository->getById($id);
-        if ($template === null) {
+        if (null === $template) {
             throw new NotFoundHttpException();
         }
+
         return $template;
     }
 
     /**
      * Common code for create and update actions.
      *
-     * @param mixed $model
-     * @param array $redirectUrl
+     * @param array  $redirectUrl
      * @param string $view
      *
      * @return string|\yii\web\Response

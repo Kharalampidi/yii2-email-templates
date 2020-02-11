@@ -1,6 +1,7 @@
 <?php
 /**
- * @link https://github.com/yiimaker/yii2-email-templates
+ * @see https://github.com/yiimaker/yii2-email-templates
+ *
  * @copyright Copyright (c) 2017-2018 Yii Maker
  * @license BSD 3-Clause License
  */
@@ -13,6 +14,7 @@ use yii\db\Migration;
  * Handles the creation of tables `email_template` and `email_template_translation`.
  *
  * @author Vladimir Kuprienko <vldmr.kuprienko@gmail.com>
+ *
  * @since 3.0
  */
 class m171119_140800_create_email_template_entities extends Migration
@@ -26,15 +28,14 @@ class m171119_140800_create_email_template_entities extends Migration
      */
     protected $translationTableName = '{{%email_template_translation}}';
 
-
     /**
      * {@inheritdoc}
      */
     public function safeUp()
     {
         $tableOptions = null;
-        if ($this->db->driverName === 'mysql') {
-            /* @link http://stackoverflow.com/questions/766809/whats-the-difference-between-utf8-general-ci-and-utf8-unicode-ci */
+        if ('mysql' === $this->db->driverName) {
+            // @link http://stackoverflow.com/questions/766809/whats-the-difference-between-utf8-general-ci-and-utf8-unicode-ci
             $tableOptions = 'CHARACTER SET utf8 COLLATE utf8_unicode_ci ENGINE=InnoDB';
         }
 

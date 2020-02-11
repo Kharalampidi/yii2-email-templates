@@ -1,6 +1,7 @@
 <?php
 /**
- * @link https://github.com/yiimaker/yii2-email-templates
+ * @see https://github.com/yiimaker/yii2-email-templates
+ *
  * @copyright Copyright (c) 2017-2018 Yii Maker
  * @license BSD 3-Clause License
  */
@@ -20,6 +21,7 @@ use ymaker\email\templates\repositories\EmailTemplatesRepositoryInterface;
  * @property string $emailTemplateHint
  *
  * @author Vladimir Kuprienko <vldmr.kuprienko@gmail.com>
+ *
  * @since 3.0
  */
 class EmailTemplateBehavior extends Behavior
@@ -45,7 +47,6 @@ class EmailTemplateBehavior extends Behavior
      * @var \ymaker\email\templates\entities\EmailTemplate
      */
     private $_template;
-
 
     /**
      * {@inheritdoc}

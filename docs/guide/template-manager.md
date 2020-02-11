@@ -6,71 +6,13 @@ Template manager
 Configure repository in DI container
 
 ```php
-// bootstrap.php
-
-\Yii::$container->set(
-    \ymaker\email\templates\repositories\EmailTemplatesRepositoryInterface::class,
-    \ymaker\email\templates\repositories\EmailTemplatesRepository::class
-);
-
-// or config/main.php
-`container` => [
-    'singletons' => [
-        // ...
-        \ymaker\email\templates\repositories\EmailTemplatesRepositoryInterface::class =>
-            \ymaker\email\templates\repositories\EmailTemplatesRepository::class,
-    ],
-],
-```
-
-## Using
-
-You can get data to replace placeholders from some classes methods, application components, databases, widgets, etc.
-
-### Example of letter body
-    
-```
-        {project-name}
-Dear {username}, thank you for buying products on our shop!
-
-Products you buying
-{products-table}
-
-For information about delivery you can {support-callcenter-link} or {support-email-link}.
-
-{goodbye-message}
-```
-    
-### Template parsing
-
-```php
-// getting template by key
-
-/* @var string $productsTable HTML table of bought products */
-$productsTable = \app\modules\shop\widgets\BoughtProductsTable::widget([
-    'buyerId' => Yii::$app->getUser()->id,
-]);
-
-/* @var \app\components\Configuration $config Component with configuration from dashboard */
-$config = Yii::$app->get('config');
-
-$supportCallcenterLink = \yii\helpers\Html::a(
-    \Yii::t('shop', 'call to us'),
-    $config->supportCallcenterNumber
-);
-$supportEmailLink = \yii\helpers\Html::a(
-    \Yii::t('shop', 'write to e-mail'),
-    $config->supportEmailAddress
-);
-
-$template->parseBody([
-    'project-name'              => \Yii::$app->name,
-    'username'                  => \Yii::$app->getIdentity()->firstname,
-    'products-table'            => $productsTable,
-    'support-callcenter-link'   => $supportCallcenterLink,
-    'support-email-link'        => $supportEmailLink,
-    'goodbye-message'           => \app\bots\EmailBot::generateGoodbyeMessage(),
-]);
+    'components' => [
+        ...
+        'templateManager' => [
+            'class' => 'ymaker\email\templates\components\TemplateManager'
+        ],
+        ...
+    ]
 ```
 
 ## Template manager methods
